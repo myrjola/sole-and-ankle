@@ -63,10 +63,11 @@ const ShoeCard = ({
         <Spacer size={12} />
         <Row>
           <Name>{name}</Name>
-          <Price>{formatPrice(price)}</Price>
+          <Price strikeThrough={salePrice}>{formatPrice(price)}</Price>
         </Row>
         <Row>
           <ColorInfo>{pluralize('Color', numOfColors)}</ColorInfo>
+          {salePrice && <SalePrice>{formatPrice(salePrice)}</SalePrice>}
         </Row>
       </Wrapper>
     </Link>
@@ -94,6 +95,9 @@ const Image = styled.img`
 
 const Row = styled.div`
   font-size: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
 `;
 
 const Name = styled.h3`
@@ -101,7 +105,10 @@ const Name = styled.h3`
   color: ${COLORS.gray[900]};
 `;
 
-const Price = styled.span``;
+const Price = styled.span`
+  text-decoration-line: ${p => p.strikeThrough && 'line-through'};
+  color: ${p => p.strikeThrough && COLORS.gray["700"]};
+`;
 
 const ColorInfo = styled.p`
   color: ${COLORS.gray[700]};
